@@ -148,14 +148,14 @@ class Tx_Formhandler_Finisher_CleverReach extends Tx_Formhandler_AbstractFinishe
 			}
 
 			//post process the field value after formhandler did it's magic.
-			if (is_array($options['postProcessing.'])) {
+			if (is_array($options) && is_array($options['postProcessing.'])) {
 				$options['postProcessing.']['value'] = $fieldValue;
 				$fieldValue = $this->utilityFuncs->getSingle($options, 'postProcessing');
 			}
 
 			$queryFields[$fieldname] = $fieldValue;
 
-			if ($options['nullIfEmpty'] && strlen($queryFields[$fieldname]) == 0) {
+			if (is_array($options) && $options['nullIfEmpty'] && strlen($queryFields[$fieldname]) == 0) {
 				unset($queryFields[$fieldname]);
 			}
 		}
